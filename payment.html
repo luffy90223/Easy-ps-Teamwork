@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>EasyPS - Welcome for Beginner</title>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css">
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
+
+
+
+    <link rel="stylesheet" href="css/animate.min.css" type="text/css">
+
+    <link rel="stylesheet" href="css/creative.css" type="text/css">
+
+      <!-- The required Stripe lib -->
+  <script type="text/javascript" src="https://js.stripe.com/v1/"></script>
+
+  <!-- jQuery is used only for this example; it isn't required to use Stripe -->
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+  <style type="text/css">
+    .payment {
+        background-color: white;
+        width: 340px;
+        height: 340px;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 25px;
+    }
+    .header-content2 form {
+        color: black;
+        padding-top: 20px;
+    }
+    .header-content2 .payment h3{
+        color: black;
+        padding-top: 40px;
+    }
+    .header-content2 .payment button {
+        color: white;
+    }
+  </style>
+
+    <script type="text/javascript">
+    function payFunction() {
+            document.getElementById("pay").innerHTML = "THANK YOU FOR YOUR PURCHASE!!!";
+    };
+
+    Stripe.setPublishableKey('pk_test_LTzPAHhQr01cCutz23vVYsVS');
+   
+        var stripeResponseHandler = function(status, response) {
+        var $form = $('#payment-form');
+        if (response.error) {
+            $form.find('.payment-errors').text(response.error.message);
+            $form.find('button').prop('disabled', false);
+        } else {
+            var token = response.id;
+            alert(token);
+        }
+    };
+    jQuery(function($) {
+        $('#payment-form').submit(function(e) {
+            var $form = $(this);
+            $form.find('button').prop('disabled', true);
+            Stripe.card.createToken($form, stripeResponseHandler);
+            return false;
+        });
+    });
+  </script>
+
+</head>
+
+<body id="page-top">
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">EasyPS</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a class="page-scroll" href="page.html#page-top">Home</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="page.html#tutorial">Tutorials</a>
+                    </li>                    
+                    <li>
+                        <a class="page-scroll" href="#contact">Contact</a>
+                    </li>
+
+                    <li>
+                        <a class="" href="#">VIP</a>
+                    </li>
+
+                    <li id="opener-logout">
+                        <a href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a>
+                    </li>
+
+                        
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <div class="header-content2" id="pay">
+        <div class="payment">
+            <h3>Want to see all tutorials?</h3>
+            <h3>Charge $50 for the VIP plan</h3>
+    
+        <form action="" method="POST" id="payment-form">
+            <span class="payment-errors"></span>
+    
+            <div class="form-row">
+              <label>
+                <span>Card Number</span>
+                <input type="text" size="20" data-stripe="number"/>
+              </label>
+            </div>
+    
+            <div class="form-row">
+              <label>
+                <span>CVC</span>
+                <input type="text" size="4" data-stripe="cvc"/>
+              </label>
+            </div>
+    
+            <div class="form-row">
+              <label>
+                <span>Expiration (MM/YYYY)</span>
+                <input type="text" size="2" data-stripe="exp-month"/>
+              </label>
+              <span> / </span>
+              <input type="text" size="4" data-stripe="exp-year"/>
+            </div>
+    
+            <button class="btn-primary" type="submit" id="" onclick="payFunction()">Submit Payment</button>
+        </form>
+        </div>
+    </div>
+
+    <section id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <h2 class="section-heading">Let's Get In Touch!</h2>
+                    <hr class="primary">
+                    <p>Ready to learn more with us? That's great! Give us a call or send us an email and we will get back to you as soon as possible!</p>
+                </div>
+                <div class="col-lg-4 col-lg-offset-2 text-center">
+                    <i class="fa fa-phone fa-3x wow bounceIn"></i>
+                    <p>415-988-0223</p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <i class="fa fa-envelope-o fa-3x wow bounceIn" data-wow-delay=".1s"></i>
+                    <p><a href="mailto:yycreate4u@gmail.com">
+                    yycreate4u@gmail.com</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+        <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/jquery.fittext.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script rel="stylesheet" src="js/jquery.ui.touch-punch.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/creative.js"></script>
+    <script src="js/myindex.js"></script>
+   
+
+
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
